@@ -1,6 +1,7 @@
 import json
 from urllib.parse import urljoin
 
+import jsonpath as jsonpath
 import requests
 import constants
 
@@ -15,6 +16,8 @@ class Vip(object):
         # Get function communicates with the external server.
         response = requests.get(constants.BANNER_V1_URL, verify=False)
 
+        print(json.dumps(response.json(), indent=4))
+
         if response.ok:
             return response
         else:
@@ -25,6 +28,8 @@ class Vip(object):
         # Get function communicates with the external server.
         response = requests.get(constants.PREMIERE_V1_URL, verify=False)
 
+        print(json.dumps(response.json(), indent=4))
+
         if response.ok:
             return response
         else:
@@ -34,6 +39,8 @@ class Vip(object):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
         response = requests.get(constants.USER_GETBYUUID, verify=False)
+
+        print(json.dumps(response.json(), indent=4))
 
         if response.ok:
             return response
@@ -55,6 +62,10 @@ class Vip(object):
 
 
     def post_coupon_v1_url(self):
+        # API url
+        url = "http://httpbin.org/post"
+
+        # Payload with JSON file to post
         payload = """{
             "items": [
                 {
@@ -69,13 +80,28 @@ class Vip(object):
             "coupon_code": "VIPRABAT20LO0D"
         }"""
 
-        send = requests.post('http://httpbin.org/post', verify=False, data=payload)
+        # Make a post request with json input body
+        response = requests.post(url, payload)  # data sent successfuly
 
-        # sendkt = requests.post('https://api-komputronik-vippublic.test.netcorner.pl/vip/coupon/v1/private/coupon-apply',
+        print(response.text)
+        print(response.status_code)
+
+        # parse response to json format
+        response_json = json.loads(response.text)
+
+        # pick ID using json path (id selected from json on a website from url variable) - it will return a list
+        form_api = jsonpath.jsonpath(response_json, 'json')
+        print(form_api)
+
+        # send = requests.post('http://httpbin.org/post', verify=False, data=payload)
+
+    # sendkt = requests.post('https://api-komputronik-vippublic.test.netcorner.pl/vip/coupon/v1/private/coupon-apply',
         #                        verify=False, data=payload)
-        #https://api-komputronik-vippublic.test.netcorner.pl/vip/coupon/v1/customer/coupons/active
+        # https://api-komputronik-vippublic.test.netcorner.pl/vip/coupon/v1/customer/coupons/active
         # print("BIN:", send.text, send.status_code)
         # print("KT:", sendkt.text, sendkt.status_code)
+
+
 
 
 test = Vip()
