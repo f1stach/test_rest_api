@@ -47,6 +47,30 @@ class Vip(object):
         else:
             return None
 
+    def get_userbytoken_v1_url(self):
+        # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
+        # Get function communicates with the external server.
+        response = requests.get(constants.USER_GETBYTOKEN_V1, verify=False)
+
+        # print(json.dumps(response.json(), indent=4))
+
+        if response.ok:
+            return response
+        else:
+            return None
+
+    def get_userbytoken_v3_url(self):
+        # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
+        # Get function communicates with the external server.
+        response = requests.get(constants.USER_GETBYTOKEN_V3, verify=False)
+
+        # print(json.dumps(response.json(), indent=4))
+
+        if response.ok:
+            return response
+        else:
+            return None
+
     def user_profile(self):
         profile_data = """{
                       "uuid": "1234",
@@ -63,6 +87,106 @@ class Vip(object):
         return profile_data
 
     def post_register_user_v1_url(self):
+        # API url
+        url = "http://httpbin.org/post"
+
+        # Payload with JSON file to post
+        payload = """{
+                      "email": "example@example.com",
+                      "password": "password",
+                      "mobile_phone": "123456789",
+                      "vip_agreement": "yes",
+                      "personal_data_agreement": "yes",
+                      "komputronik_ecommerce_agreement": "yes"
+                  }"""
+
+        # Make a post request with json input body
+        response = requests.post(url, payload)  # data sent successfuly
+        # print(response.text)
+        print(response.status_code)
+        if url == constants.TEST_URL:
+            correct_url = response.status_code
+            return correct_url
+        else:
+            bad_url = response.status_code
+            return bad_url
+
+    def post_register_user_v1_1_url(self):
+        # API url
+        url = "http://httpbin.org/post"
+
+        # Payload with JSON file to post
+        payload = """{
+                      "email": "example@example.com",
+                      "password": "password",
+                      "mobile_phone": "123456789",
+                      "vip_agreement": "yes",
+                      "personal_data_agreement": "yes",
+                      "komputronik_ecommerce_agreement": "yes"
+                  }"""
+
+        # Make a post request with json input body
+        response = requests.post(url, payload)  # data sent successfuly
+        # print(response.text)
+        print(response.status_code)
+        if url == constants.TEST_URL:
+            correct_url = response.status_code
+            return correct_url
+        else:
+            bad_url = response.status_code
+            return bad_url
+
+    def post_register_user_v2_url(self):
+        # API url
+        url = "http://httpbin.org/post"
+
+        # Payload with JSON file to post
+        payload = """{
+                      "email": "example@example.com",
+                      "password": "password",
+                      "mobile_phone": "123456789",
+                      "vip_agreement": "yes",
+                      "personal_data_agreement": "yes",
+                      "komputronik_ecommerce_agreement": "yes"
+                  }"""
+
+        # Make a post request with json input body
+        response = requests.post(url, payload)  # data sent successfuly
+        # print(response.text)
+        print(response.status_code)
+        if url == constants.TEST_URL:
+            correct_url = response.status_code
+            return correct_url
+        else:
+            bad_url = response.status_code
+            return bad_url
+
+    def post_register_user_v2_1_url(self):
+        # API url
+        url = "http://httpbin.org/post"
+
+        # Payload with JSON file to post
+        payload = """{
+                      "email": "example@example.com",
+                      "password": "password",
+                      "mobile_phone": "123456789",
+                      "vip_agreement": "yes",
+                      "personal_data_agreement": "yes",
+                      "komputronik_ecommerce_agreement": "yes"
+                  }"""
+
+        # Make a post request with json input body
+        response = requests.post(url, payload)  # data sent successfuly
+        # print(response.text)
+        print(response.status_code)
+        if url == constants.TEST_URL:
+            correct_url = response.status_code
+            return correct_url
+        else:
+            bad_url = response.status_code
+            return bad_url
+
+    def post_register_user_v3_url(self):
         # API url
         url = "http://httpbin.org/post"
 
@@ -208,7 +332,7 @@ class Vip(object):
             bad_url = response.status_code
             return bad_url
 
-    def post_personal_data_update_v1_url(self):
+    def post_personal_data_update_v3_url(self):
         # API url
         url = "http://httpbin.org/post"
 
@@ -259,34 +383,49 @@ class Vip(object):
         data = response.json()
 
         print(response.status_code)
+        print(data)
 
         # parse response to json format
         response_json = json.loads(response.text)
+        print(response_json)
 
         # pick ID using json path (id selected from json on a website from url variable) - it will return a list
         form_api = jsonpath.jsonpath(response_json, 'json')
-        print(form_api[0])
+        # print(form_api[0])
 
-        temp = json.load(response)
-        for lines in temp:
-            text = lines['text']
-            print(text)
+        # print(response_json['data'][0][0])
 
-        # x = "price" in payload
+        for i in response_json['data']:
+            if 'items' in i:
+                print(i['items'][0]['code'])
+            else:
+                print("Go away")
 
-        for line in response_json:
-            j = json.loads(line)
-            try:
-                if 'text' in j:
-                    print('TEXT: ', j['text'])
-                elif 'delete' in j:
-                    print('DELETE: ', j['delete'])
-                else:
-                    print('Everything: ', j)
-            except:
-                print("EXCEPTION: ", j)
+        if not 'code' in response_json or len(response_json['code']) == 0:
+            print("wtf")
+        else:
+            print("fuck")
 
-        # return x
+        # temp = json.load(response)
+        # for lines in temp:
+        #     text = lines['text']
+        #     print(text)
+        #
+        x = "quantity" in payload
+        #
+        # for line in response_json:
+        #     j = json.loads(line)
+        #     try:
+        #         if 'text' in j:
+        #             print('TEXT: ', j['text'])
+        #         elif 'delete' in j:
+        #             print('DELETE: ', j['delete'])
+        #         else:
+        #             print('Everything: ', j)
+        #     except:
+        #         print("EXCEPTION: ", j)
+        #
+        return x
 
 
 

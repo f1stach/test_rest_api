@@ -1,6 +1,8 @@
 # test url
 TEST_URL = 'http://httpbin.org/post'
 
+V1_URL = 'http://httpbin.org/post'
+
 # Get - /rest-api/banner/v1/get
 BANNER_V1_URL = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/banner/v1/get'
 
@@ -10,10 +12,14 @@ PREMIERE_V1_URL = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/premi
 # Get - /vip/customer/v1/private/customer/{uuid}
 USER_GETBYUUID = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/customer/v1/private/customer/{uuid}'
 
+# Get - /vip/customer/v3/customer
+USER_GETBYTOKEN_V3 = "https://api-komputronik-vippublic.test.netcorner.pl/vip/customer/v3/customer"
+
+# Get - /vip/customer/v1/customer
+USER_GETBYTOKEN_V1 = "https://api-komputronik-vippublic.test.netcorner.pl/vip/customer/v1/customer"
+
 # Post - coupon/v1/private/coupon-apply
 COUPON_V1_URL = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/coupon/v1/private/coupon-apply'
-
-V1_URL = 'http://httpbin.org/post'
 
 # Post - sales-document/v1/attach
 SALES_V1_URL = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/sales-document/v1/attach'

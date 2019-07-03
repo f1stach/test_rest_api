@@ -223,6 +223,86 @@ def test_get_userbyuuid_v1_url_real_contract():
     # assert list(response_keys) == list(after_mock_keys)
 
 
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v1_url(get_mock, vip):
+    # Configure the mock to return a response with an OK status code.
+    get_mock.return_value.ok = True
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v1_url()
+
+    # If the request is sent successfully, then I expect a response to be returned.
+    assert response != None
+
+
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v1_url_status_ok(get_mock, vip):
+    object_url = vip.user_profile()
+
+    # Creating a function to mock and mocking JSON response with a dictionary from above.
+    get_mock.return_value = Mock(ok=True)
+    get_mock.return_value.json.return_value = object_url
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v1_url()
+
+    # If the request is sent successfully, then I expect a response to be returned.
+    assert response.json() == object_url
+
+
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v1_url_status_nok(get_mock, vip):
+
+    # Configure the mock to not return a response with an OK status code.
+    get_mock.return_value.ok = False
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v1_url()
+
+    # If the response contains an error, I should get None.
+    assert response == None
+
+
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v3_url(get_mock, vip):
+    # Configure the mock to return a response with an OK status code.
+    get_mock.return_value.ok = True
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v3_url()
+
+    # If the request is sent successfully, then I expect a response to be returned.
+    assert response != None
+
+
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v3_url_status_ok(get_mock, vip):
+    object_url = vip.user_profile()
+
+    # Creating a function to mock and mocking JSON response with a dictionary from above.
+    get_mock.return_value = Mock(ok=True)
+    get_mock.return_value.json.return_value = object_url
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v3_url()
+
+    # If the request is sent successfully, then I expect a response to be returned.
+    assert response.json() == object_url
+
+
+@patch('vip_api.requests.get')
+def test_get_userbytoken_v3_url_status_nok(get_mock, vip):
+
+    # Configure the mock to not return a response with an OK status code.
+    get_mock.return_value.ok = False
+
+    # Call the service, which will send a request to the server.
+    response = vip.get_userbytoken_v3_url()
+
+    # If the response contains an error, I should get None.
+    assert response == None
+
+
 def test_user_profile(vip):
     response = vip.user_profile()
     assert response
@@ -230,6 +310,26 @@ def test_user_profile(vip):
 
 def test_post_register_user_v1_url_status_code(vip):
     response = vip.post_register_user_v1_url()
+    assert response
+
+
+def test_post_register_user_v1_1_url_status_code(vip):
+    response = vip.post_register_user_v1_1_url()
+    assert response
+
+
+def test_post_register_user_v2_url_status_code(vip):
+    response = vip.post_register_user_v2_url()
+    assert response
+
+
+def test_post_register_user_v2_1_url_status_code(vip):
+    response = vip.post_register_user_v2_1_url()
+    assert response
+
+
+def test_post_register_user_v3_url_status_code(vip):
+    response = vip.post_register_user_v3_url()
     assert response
 
 
@@ -258,8 +358,8 @@ def test_post_reset_password_v1_url_status_code(vip):
     assert response
 
 
-def test_post_personal_data_update_v1_url_status_code(vip):
-    response = vip.post_personal_data_update_v1_url()
+def test_post_personal_data_update_v3_url_status_code(vip):
+    response = vip.post_personal_data_update_v3_url()
     assert response
 
 
