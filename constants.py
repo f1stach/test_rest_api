@@ -1,3 +1,6 @@
+# test url
+TEST_URL = 'http://httpbin.org/post'
+
 # Get - /rest-api/banner/v1/get
 BANNER_V1_URL = 'https://api-komputronik-vippublic.test.netcorner.pl/vip/banner/v1/get'
 
