@@ -313,8 +313,18 @@ def test_post_register_user_v1_url_status_code(vip):
     assert response
 
 
+def test_post_register_user_v1_check_error(vip):
+    response = vip.post_register_user_v1_check_error()
+    assert response
+
+
 def test_post_register_user_v1_1_url_status_code(vip):
     response = vip.post_register_user_v1_1_url()
+    assert response
+
+
+def test_post_register_user_v1_1_check_error(vip):
+    response = vip.post_register_user_v1_1_check_error()
     assert response
 
 
@@ -323,8 +333,18 @@ def test_post_register_user_v2_url_status_code(vip):
     assert response
 
 
+def test_post_register_user_v2_check_error(vip):
+    response = vip.post_register_user_v2_check_error()
+    assert response
+
+
 def test_post_register_user_v2_1_url_status_code(vip):
     response = vip.post_register_user_v2_1_url()
+    assert response
+
+
+def test_post_register_user_v2_1_check_error(vip):
+    response = vip.post_register_user_v2_1_check_error()
     assert response
 
 
@@ -333,13 +353,28 @@ def test_post_register_user_v3_url_status_code(vip):
     assert response
 
 
+def test_post_register_user_v3_check_error(vip):
+    response = vip.post_register_user_v3_check_error()
+    assert response
+
+
 def test_post_login_user_v1_url_status_code(vip):
     response = vip.post_login_user_v1_url()
     assert response
 
 
+def test_post_login_user_v1_check_error(vip):
+    response = vip.post_login_user_v1_check_error()
+    assert response
+
+
 def test_post_login_user_v3_url_status_code(vip):
     response = vip.post_login_user_v3_url()
+    assert response
+
+
+def test_post_login_user_v3_check_error(vip):
+    response = vip.post_login_user_v3_check_error()
     assert response
 
 
@@ -368,6 +403,16 @@ def test_post_coupon_v1_url_status_code(vip):
     assert response
 
 
+def test_post_coupon_v1_check_error(vip):
+    response = vip.post_coupon_v1_check_error()
+    assert response
+
+
 def test_post_sales_doc_v1_url_status_code(vip):
     response = vip.post_sales_doc_v1()
+    assert response
+
+
+def test_post_sales_doc_v1_check_error(vip):
+    response = vip.post_sales_doc_v1_check_error()
     assert response
