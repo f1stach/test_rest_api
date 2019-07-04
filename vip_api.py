@@ -16,7 +16,10 @@ class Vip(object):
     def get_banner_v1_url(self):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
-        response = requests.get(constants.BANNER_V1_URL, verify=False)
+
+        url = urls.get_banner_v1
+
+        response = requests.get(url, verify=False)
 
         # print(json.dumps(response.json(), indent=4))
 
@@ -28,7 +31,10 @@ class Vip(object):
     def get_premiere_v1_url(self):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
-        response = requests.get(constants.PREMIERE_V1_URL, verify=False)
+
+        url = urls.get_premiere_v1
+
+        response = requests.get(url, verify=False)
 
         # print(json.dumps(response.json(), indent=4))
 
@@ -40,7 +46,10 @@ class Vip(object):
     def get_userbyuuid_v1_url(self):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
-        response = requests.get(constants.USER_GETBYUUID, verify=False)
+
+        url = urls.get_userbyuuid_v1
+
+        response = requests.get(url, verify=False)
 
         # print(json.dumps(response.json(), indent=4))
 
@@ -52,7 +61,10 @@ class Vip(object):
     def get_userbytoken_v1_url(self):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
-        response = requests.get(constants.USER_GETBYTOKEN_V1, verify=False)
+
+        url = urls.get_userbytoken_v1
+
+        response = requests.get(url, verify=False)
 
         # print(json.dumps(response.json(), indent=4))
 
@@ -64,7 +76,10 @@ class Vip(object):
     def get_userbytoken_v3_url(self):
         # Make an HTTP request and return an HTTP response in the form of Response object which is JSON.
         # Get function communicates with the external server.
-        response = requests.get(constants.USER_GETBYTOKEN_V3, verify=False)
+
+        url = urls.get_userbytoken_v3
+
+        response = requests.get(url, verify=False)
 
         # print(json.dumps(response.json(), indent=4))
 
@@ -646,4 +661,4 @@ class Vip(object):
             return response.status_code
 
 test = Vip()
-print(test.post_coupon_v1_check_error())
+print(test.get_banner_v1_url())
