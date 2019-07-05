@@ -24,7 +24,8 @@ class Vip(object):
         # print(json.dumps(response.json(), indent=4))
 
         if response.ok:
-            return response
+            print(response.json())
+            return response.status_code
         else:
             return None
 
@@ -39,8 +40,10 @@ class Vip(object):
         # print(json.dumps(response.json(), indent=4))
 
         if response.ok:
-            return response
+            print(response.json())
+            return response.status_code
         else:
+            print("Error customer.002")
             return None
 
     def get_userbyuuid_v1_url(self):
@@ -54,8 +57,10 @@ class Vip(object):
         # print(json.dumps(response.json(), indent=4))
 
         if response.ok:
-            return response
+            print(response.json())
+            return response.status_code
         else:
+            print("Error customer.001")
             return None
 
     def get_userbytoken_v1_url(self):
@@ -69,7 +74,8 @@ class Vip(object):
         # print(json.dumps(response.json(), indent=4))
 
         if response.ok:
-            return response
+            print(response.json())
+            return response.status_code
         else:
             return None
 
@@ -84,7 +90,8 @@ class Vip(object):
         # print(json.dumps(response.json(), indent=4))
 
         if response.ok:
-            return response
+            print(response.json())
+            return response.status_code
         else:
             return None
 

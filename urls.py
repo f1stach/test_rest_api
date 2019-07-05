@@ -8,7 +8,7 @@ get_userbytoken_v1 = "http://httpbin.org/get"
 
 get_userbytoken_v3 = "http://httpbin.org/get"
 
-register_user_v1 = "http://httpbin.org/post"
+register_user_v1 = "http://httpbin.org/pos"
 
 register_user_v1_1 = "http://httpbin.org/post"
 
