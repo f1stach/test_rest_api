@@ -1,6 +1,5 @@
 import json
 from urllib.parse import urljoin
-
 import jsonpath as jsonpath
 import requests
 import constants
@@ -21,10 +20,8 @@ class Vip(object):
 
         response = requests.get(url, verify=False)
 
-        # print(json.dumps(response.json(), indent=4))
-
         if response.ok:
-            print(response.json())
+            print(json.dumps(response.json(), indent=4))
             return response.status_code
         else:
             return None
@@ -35,12 +32,12 @@ class Vip(object):
 
         url = urls.get_premiere_v1
 
-        response = requests.get(url, verify=False)
+        head = {'Authorization': 'Bearer ' + payloads.login_user['auth_token']}
 
-        # print(json.dumps(response.json(), indent=4))
+        response = requests.get(url,  headers=head, verify=False)
 
         if response.ok:
-            print(response.json())
+            print(json.dumps(response.json(), indent=4))
             return response.status_code
         else:
             print("Error customer.002")
@@ -52,12 +49,12 @@ class Vip(object):
 
         url = urls.get_userbyuuid_v1
 
-        response = requests.get(url, verify=False)
+        head = {'Authorization': 'Key ' + 'thu0Eb8uiVoo7choobaepoh4thigh6Hae9aipie2du1NaeQueiz0fae6ieshopho'}
 
-        # print(json.dumps(response.json(), indent=4))
+        response = requests.get(url, headers=head, verify=False)
 
         if response.ok:
-            print(response.json())
+            print(json.dumps(response.json(), indent=4))
             return response.status_code
         else:
             print("Error customer.001")
@@ -69,12 +66,12 @@ class Vip(object):
 
         url = urls.get_userbytoken_v1
 
-        response = requests.get(url, verify=False)
+        head = {'Authorization': 'Bearer ' + payloads.login_user['auth_token']}
 
-        # print(json.dumps(response.json(), indent=4))
+        response = requests.get(url, headers=head, verify=False)
 
         if response.ok:
-            print(response.json())
+            print(json.dumps(response.json(), indent=4))
             return response.status_code
         else:
             return None
@@ -85,12 +82,12 @@ class Vip(object):
 
         url = urls.get_userbytoken_v3
 
-        response = requests.get(url, verify=False)
+        head = {'Authorization': 'Bearer ' + payloads.login_user['auth_token']}
 
-        # print(json.dumps(response.json(), indent=4))
+        response = requests.get(url, headers=head, verify=False)
 
         if response.ok:
-            print(response.json())
+            print(json.dumps(response.json(), indent=4))
             return response.status_code
         else:
             return None
@@ -108,17 +105,18 @@ class Vip(object):
         payload = payloads.register_user
 
         # Make a post request with json input body
-        response = requests.post(url, payload)  # data sent successfuly
+        response = requests.post(url, data=payload, verify=False)  # data sent successfuly
         # print(response.text)
         # print(response.status_code)
 
         if url == constants.TEST_URL:
+            print(json.dumps(response.json(), indent=4))
             correct_url = response.status_code
             return correct_url
         else:
             bad_url = response.status_code
             print("API error.")
-            return bad_url and "api.001"
+            return bad_url, "api.001"
 
     def post_register_user_v1_check_error(self):
         # API url
@@ -128,7 +126,7 @@ class Vip(object):
         payload = payloads.register_user
 
         # Make a post request with json input body
-        response = requests.post(url, payload)  # data sent successfuly
+        response = requests.post(url, data=payload, verify=False)  # data sent successfuly
 
         # parse response to json format
         response_json = json.loads(response.text)
@@ -171,12 +169,13 @@ class Vip(object):
         # print(response.status_code)
 
         if url == constants.TEST_URL:
+            print(json.dumps(response.json(), indent=4))
             correct_url = response.status_code
             return correct_url
         else:
             bad_url = response.status_code
             print("API error.")
-            return bad_url and "api.001"
+            return bad_url, "api.001"
 
     def post_register_user_v1_1_check_error(self):
         # API url
@@ -232,7 +231,7 @@ class Vip(object):
         else:
             bad_url = response.status_code
             print("API error.")
-            return bad_url and "api.001"
+            return bad_url, "api.001"
 
     def post_register_user_v2_check_error(self):
         # API url
@@ -288,7 +287,7 @@ class Vip(object):
         else:
             bad_url = response.status_code
             print("API error.")
-            return bad_url and "api.001"
+            return bad_url, "api.001"
 
     def post_register_user_v2_1_check_error(self):
         # API url
@@ -344,7 +343,7 @@ class Vip(object):
         else:
             bad_url = response.status_code
             print("API error.")
-            return bad_url and "api.001"
+            return bad_url, "api.001"
 
     def post_register_user_v3_check_error(self):
         # API url
@@ -359,25 +358,28 @@ class Vip(object):
         # parse response to json format
         response_json = json.loads(response.text)
 
-        if len(response_json['form']['name']) == 0 or len(payload['email']) == 0:
+        if len(response_json['form']['name']) == 0 or len(payload['mail']) == 0:
             print("Fill in your name and email address.")
             return "customer.003"
         elif len(response_json['form']['password']) == 0:
             print("Fill in your password.")
             return "customer.004"
-        elif len(response_json['form']['mobile_phone']) == 0:
+        elif len(response_json['form']['phone']) == 0:
             print("Fill in your mobile phone number.")
             return "customer.005"
         elif len(response_json['form']['city']) == 0 or len(payload['birthday']) == 0:
             print("Fill in city and date of birth.")
             return "customer.009"
-        elif len(response_json['form']['vip_agreement']) == 0:
+        elif len(response_json['form']['agreements'][0]) == 0:
             print("Choose if you agree or not.")
             return "customer.006"
-        elif len(response_json['form']['personal_data_agreement']) == 0:
+        elif len(response_json['form']['agreements'][1]) == 0:
             print("Choose if you agree or not.")
             return "customer.007"
-        elif len(response_json['form']['komputronik_ecommerce_agreement']) == 0:
+        elif len(response_json['form']['agreements'][2]) == 0:
+            print("Choose if you agree or not.")
+            return "customer.008"
+        elif len(response_json['form']['agreements'][3]) == 0:
             print("Choose if you agree or not.")
             return "customer.008"
         else:
@@ -454,7 +456,7 @@ class Vip(object):
         # parse response to json format
         response_json = json.loads(response.text)
 
-        if response_json['form']['login'] != passsw['login'] or response_json['form']['password'] != passsw['password']:
+        if response_json['form']['profile'][1] != passsw['login'] or response_json['form']['auth_token'] != passsw['password']:
             print("Wrong login or password.")
             return "coupon.002"
         else:
@@ -499,7 +501,7 @@ class Vip(object):
         # parse response to json format
         response_json = json.loads(response.text)
 
-        if response_json['form']['login'] != passsw['login'] or response_json['form']['password'] != passsw['password']:
+        if response_json['form']['profile'][1] != passsw['login'] or response_json['form']['auth_token'] != passsw['password']:
             print("Wrong login or password.")
             return "coupon.002"
         else:
@@ -566,6 +568,8 @@ class Vip(object):
     def post_coupon_v1_url(self):
         # API url
         url = urls.url_coupon_v1
+
+        head = {'Authorization': 'Key ' + 'thu0Eb8uiVoo7choobaepoh4thigh6Hae9aipie2du1NaeQueiz0fae6ieshopho'}
 
         # Payload with JSON file to post
         payload = payloads.payload_coupon_v1
@@ -635,13 +639,17 @@ class Vip(object):
         # Payload with JSON file to post
         payload = payloads.payload_sales_doc_v1
 
-        # Make a post request with json input body
-        response = requests.post(url, payload)  # data sent successfuly
+        # Payload with JSON file to post
+        head = {'Authorization': 'Bearer ' + payloads.login_user['auth_token']}
+
+        response = requests.post(url, payload, headers=head, verify=False)
+
         # print(response.text)
         # print(response.status_code)
 
-        if url == constants.TEST_URL:
+        if response.ok and url == constants.TEST_URL:
             correct_url = response.status_code
+            print(json.dumps(response.json(), indent=4))
             return correct_url
         else:
             bad_url = response.status_code
@@ -650,9 +658,13 @@ class Vip(object):
     def post_sales_doc_v1_check_error(self):
         url = urls.url_sales_doc_v1
 
+        # Payload with JSON file to post
         payload = payloads.payload_sales_doc_v1
 
-        response = requests.post(url, payload)  # data sent successfuly
+        # Payload with JSON file to post
+        head = {'Authorization': 'Bearer ' + payloads.login_user['auth_token']}
+
+        response = requests.post(url, payload, headers=head, verify=False)
 
         # parse response to json format
         response_json = json.loads(response.text)
@@ -668,4 +680,8 @@ class Vip(object):
             return response.status_code
 
 test = Vip()
-print(test.get_banner_v1_url())
+print(test.post_sales_doc_v1_check_error())
+
+
+
+# print(payloads.login_user['profile']['uuid'])
